@@ -6,8 +6,5 @@ class AwsemoSpider(scrapy.Spider):
     start_urls = ['https://github.com/sindresorhus/awesome']
 
     def parse(self, response):
-        page = response.url.split('/')[-1]
-        filename = '{}.html'.format(page)
-        with open(filename, 'wb') as f:
-            f.write(response.body)
-        self.log('Saved file {}'.format(filename))
+        for link in response.css('div.readme a::attr(href)').extract():
+            self.log(link + '/n')
