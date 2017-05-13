@@ -6,5 +6,5 @@ class AwsemoSpider(scrapy.Spider):
     start_urls = ['https://github.com/sindresorhus/awesome']
 
     def parse(self, response):
-        for url in response.css('#readme a::attr(href)').extract():
-            self.log(url + '/n')
+        for u in response.css('#readme a::attr(href)').extract():
+            yield {'url': u}
